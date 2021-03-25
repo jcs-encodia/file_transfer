@@ -1,0 +1,95 @@
+---
+   cycle:
+     - vacuum
+     - NTF_aq_buffer
+     - mix_reagent
+     - vacuum
+     - NTF2
+     - vacuum
+     - EtOH
+     - WATER:
+         reps: 5
+         inc_time: -1.0
+     - PBST
+     - WATER:
+         reps: 5
+         inc_time: -1.0
+     - vacuum
+     - WATER:
+         reps: 5
+         inc_time: -1.0
+     - vacuum
+     - NTC_Buffer
+     - vacuum
+     - cleavase
+     - protein_wash:
+         reps: 5
+         vac_time: 100
+     - vacuum: 
+         vac_time: 10.0
+     - protein_wash:
+         reps: 5
+         vac_time: 100
+     - vacuum
+     - PBST
+   end:
+     - vacuum
+     - binding_cycle
+     - vacuum
+     - protein_wash:
+         reps: 1
+     - cycle_cap
+     - vacuum
+     - protein_wash:
+         reps: 1
+     - PEW
+     - WATER
+     - vacuum
+     - PBST
+     - vacuum
+     - end_cap
+     - vacuum
+     - protein_wash:
+         reps: 1
+     - PEW
+     - WATER
+     - PBST
+   init:
+     - init_run
+   params:
+     binding_cycle:
+       inc_time: 15.0
+     PEW:
+       inc_temp: 50.0
+       inc_time: 5.0
+       final_empty_cartridges: True
+     WATER:
+       inc_time: -1.0
+     EtOH:
+       reps: 5
+       inc_time: -1.0
+     mix_reagent: # Modified for M17, volume, delivered correctly?
+       reag_a: 'NTF_comp1'
+       reag_b: 'NTF_aq_buffer'
+       dest_reag: 'NTF'
+       prewash_reag: 'NTF_aq_buffer'#changed name from 'borate' to more general NTF buffer wash -JCS 2021/03/16
+       reps: 10
+       ratio: 0.50
+       purge_mixing_tube: True
+       mix_vol: 450.0
+       prewarm_block: True
+       prewarm_temp: 40.0
+     vacuum:
+       vac_time: 60.0
+       delay: 3.0
+     NTF2: #modified for M19
+       inc_temp: 40.0 # confirm
+       inc_time: 60.0
+       num_prewash: 1
+       prewash_pump: False #no need to prewash when NTF follows a mix_reagent step
+     cleavase:
+       inc_temp: 52.0
+       inc_time: 60.0
+     NTC_Buffer:
+       reps: 5
+       inc_time: -1.0
